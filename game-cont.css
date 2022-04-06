@@ -1,0 +1,33 @@
+.game-cont {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.grid-game {
+    height: 100%;
+    width: 600px;
+    display: grid;
+    grid-template-rows: repeat(3,200px);
+    grid-template-columns: repeat(3,200px);
+}
+
+.game-box {
+    border: 5px solid var(--blue-neon);
+    border-top:none;
+    border-left: none;
+    color: var(--gray);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 10rem;
+    cursor: pointer;
+}
+
+#box3, #box6, #box9 {
+    border-right: none;
+}
+
+#box7, #box8, #box9 {
+    border-bottom: none;
+}

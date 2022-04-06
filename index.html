@@ -1,0 +1,63 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic Tac Toe</title>
+    <link rel="stylesheet" href="grid.css">
+    <link rel="stylesheet" href="game-cont.css">
+    <link rel="stylesheet" href="header.css">
+    <link rel="stylesheet" href="footer.css">
+    <link rel="stylesheet" href="modal.css">
+    <link rel="stylesheet" href="intro.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <div class="intro-modal-bg intro-modal-bg-active">
+        <div class="modal-intro">
+            <div class="form-cont">
+                <form action="getUserNames">
+                    <div class="submit-cont" id="player1-label">
+                        <label for="player1-name" class="intro-label" >Player 'X' name</label>
+                        <input type="text" name="player1-name" id="player1-name" required>
+                    </div>
+                    <div class="submit-cont" id="player2-label">
+                        <label for="player2-name" class="intro-label">Player 'O' name</label>
+                        <input type="text" name="player2-name" id="player2-name" required>
+                    </div>
+                    <div class="submit-cont submit-btn-cont">
+                        <input type="submit" class="submit-btn" value="PLAY!">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="grid-cont">
+        <div class="header-cont">
+            <div class="header-title">TIC TAC TOE</div>
+        </div>
+        <div class="game-cont">
+            <div class="grid-game">
+                <div class="game-box" id="box1"></div>
+                <div class="game-box" id="box2"></div>
+                <div class="game-box" id="box3"></div>
+                <div class="game-box" id="box4"></div>
+                <div class="game-box" id="box5"></div>
+                <div class="game-box" id="box6"></div>
+                <div class="game-box" id="box7"></div>
+                <div class="game-box" id="box8"></div>
+                <div class="game-box" id="box9"></div>
+            </div>
+        </div>
+        <div class="information-cont">
+            <!-- <div class="not-allowed">Please select a legal move</div> -->
+        </div>
+    </div>
+    <div class="modal-bg">
+        <div class="modal">
+            <div class="winner"></div>
+            <div class="new-game-btn"><button class="btn">New Game</button></div>
+        </div>
+    </div>
+</body>
+</html>

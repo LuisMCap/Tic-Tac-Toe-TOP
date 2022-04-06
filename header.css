@@ -1,0 +1,10 @@
+.header-cont {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.header-title {
+    color: var(--blue-neon);
+    font-size: 6rem;
+}

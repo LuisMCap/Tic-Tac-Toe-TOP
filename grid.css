@@ -1,0 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+@font-face {
+    font-family: 'VT323', monospace;
+    src: url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+}
+
+:root {
+    --bg-color: #0B0C10;
+    --blue-neon: #66FCF1;
+    --gray: #C5C6C8;
+    --blue-darker: #46A29F;
+    --blue: #202833;
+}
+
+body {
+    font-family: 'VT323', monospace;
+    background-color: var(--bg-color);
+    box-sizing: border-box;
+}
+
+.grid-cont {
+    height: 100vh;
+    grid-template-columns: 1fr;
+    grid-template-rows: 150px 1fr 125px;
+    display: grid;
+}
+
+.header-cont {
+    grid-row: 1;
+    grid-column: 1;
+}
+
+.game-cont {
+    grid-row: 2;
+}
+
+.information-cont {
+    grid-row: 3;
+}

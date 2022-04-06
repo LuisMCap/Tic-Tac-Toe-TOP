@@ -1,0 +1,10 @@
+.information-cont {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.not-allowed {
+    font-size: 2.5rem;
+    color: #aa506e;
+}
