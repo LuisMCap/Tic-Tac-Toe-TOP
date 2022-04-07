@@ -22,7 +22,7 @@ body {
 .grid-cont {
     height: 100vh;
     grid-template-columns: 1fr;
-    grid-template-rows: 150px 1fr 125px;
+    grid-template-rows: 150px 1fr 100px;
     display: grid;
 }
 

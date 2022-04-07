@@ -1,4 +1,10 @@
 .game-cont {
+    display: grid;
+    width: 100%;
+    grid-template-columns: 500px 1fr 500px;
+}
+
+.grid-game-cont {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -29,5 +35,108 @@
 }
 
 #box7, #box8, #box9 {
+    border-bottom: none;
+}
+
+.player-history {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.history-cont {
+    width: 300px;
+    height: 440px;
+    border: 1px solid var(--blue-neon);
+    display: flex;
+    flex-direction: column;
+}
+
+.history-header {
+    display: flex;
+    width: 100%;
+    height: 75px;
+    border: 1px solid var(--blue-neon);
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    margin-bottom: 20px;
+}
+
+.history-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 75%;
+    height: 100%;
+    color: var(--blue-neon);
+    font-size: 2.8rem;
+}
+
+.player-score-cont {
+    display: flex;
+    height: 100%;
+    width: 25%;
+    flex-direction: column;
+    border-left: 1px solid var(--blue-neon);
+}
+
+.player-score-header {
+    width: 100%;
+    height: 30%;
+    color: var(--blue-neon);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid var(--blue-neon);
+}
+
+.player-score{
+    width: 100%;
+    height: 70%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3rem;
+    color: var(--blue-neon);
+}
+
+.history-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px,min-content));
+    grid-template-rows: repeat(auto-fill,minmax(100px,min-content));
+    justify-content: center;
+    gap: 20px;
+}
+
+.game-small {
+    height: auto;
+    width: auto;
+    display: grid;
+    grid-template-rows: repeat(3,25px);
+    grid-template-columns: repeat(3,25px);
+    justify-self: center;
+    align-self: center;
+}
+
+.small-box {
+    border: 1px solid var(--blue-neon);
+    border-top:none;
+    border-left: none;
+    color: var(--gray);
+    font-size: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+#small-box3, #small-box6, #small-box9 {
+    border-right: none;
+}
+
+#small-box7, #small-box8, #small-box9 {
     border-bottom: none;
 }

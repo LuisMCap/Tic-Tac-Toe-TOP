@@ -14,10 +14,6 @@ const Player = (move) => {
         return move
     };return {getMove, setName, getPlayer1Name, getPlayer2Name}}
 
-function PlayerCons(move) {
-    this.move = move
-
-}
 
 const GameBoard = (() =>{
     let grid = [['box1','box2','box3'],
@@ -26,6 +22,7 @@ const GameBoard = (() =>{
 
     let gameBoxes = document.querySelectorAll('.game-box');
     let count = 0;
+    let boxesContent = []
 
     checkWinner = (box) => {
         let draw = 'Draw'
@@ -37,23 +34,28 @@ const GameBoard = (() =>{
                 if (lista.length == 3) {
                     let vertical = new Set(lista)
                     if (vertical.size == 1) {
+                        setBoxesHTML()
                         return Array.from(vertical)[0]
                     }
                 }
                  // CHECKS HORIZONAL WIN
                 let horizontal = new Set(grid[i])
                 if (horizontal.size  == 1) {
+                    setBoxesHTML()
                     return Array.from(horizontal)[0]
                 }
         
                 // CHECKS DIAGONAL WIN
                 if ((grid[0][0] == grid[1][1]) & (grid[2][2] == grid[1][1])) {
+                    setBoxesHTML()
                     return grid[0][0]
                 }
                 else if ((grid[1][1] == grid[0][2])&(grid[1][1] == grid[2][0])) {
+                    setBoxesHTML()
                     return grid[1][1]
                 }
                 if (count == 9) {
+                    setBoxesHTML()
                     return draw
                 }
                 
@@ -66,6 +68,17 @@ const GameBoard = (() =>{
             grid[i][j] = box.innerHTML
             count += 1}
      };
+
+     setBoxesHTML = () => {
+        gameBoxes.forEach(box =>{
+            boxesContent.push(box.innerHTML)
+         })
+        console.log(boxesContent)
+     }
+
+     getBoxesHTML = () => {
+         return boxesContent
+     }
 
      getCount = () =>{
          return count
@@ -86,9 +99,10 @@ const GameBoard = (() =>{
                 ['box4','box5','box6'],
                 ['box7','box8','box9']];
         count = 0
+        boxesContent = []
     }
      
-     return {checkWinner, whoWon, updateGrid, getCount, cleanBoard}
+     return {checkWinner, whoWon, updateGrid, getCount, cleanBoard, getBoxesHTML}
 
     })()
 
@@ -112,6 +126,8 @@ const Game = (() =>{
             winner = GameBoard.checkWinner(box)
             if (winner) {
                 showWinner(winner)
+                // Player1HistoryCont.createSmallGrid()
+                // Player1HistoryCont.setSmallGridMoves()
                 Modal.openModal()}
             })
         })};
@@ -155,12 +171,19 @@ const Game = (() =>{
     getWinnersName = (winner) => {
         if (winner == oPlayer.getMove()) {
             winnerName = oPlayer.getPlayer2Name()
+            Player2HistoryCont.update()
         }
         else if (winner == 'Draw') {
             winnerName = 'DRAW!'
         }
         else if (winner == xPlayer.getMove()) {
             winnerName = xPlayer.getPlayer1Name()
+            console.log('hola')
+            Player1HistoryCont.createSmallGrid()
+            Player1HistoryCont.setSmallGridMoves()
+            Player1HistoryCont.updateScore()
+            Player1HistoryCont.resetList()
+            Player1HistoryCont.cleanHistoryGrid()
         }
         return winnerName
     }
@@ -186,18 +209,125 @@ const Modal= (() => {
 const IntroModal = (() => {
     const modal = document.querySelector('.intro-modal-bg')
     const submitBtn = document.querySelector('.submit-btn')
-    const form = document.querySelector('form')
     const player1Input = document.getElementById('player1-name')
     const player2Input = document.getElementById('player2-name')
     closeModal =(xPlayer) => {
         submitBtn.addEventListener('click',e => {
             e.preventDefault()
             xPlayer.setName(player1Input.value, player2Input.value)
+            Player1HistoryCont.setName(player1Input.value)
+            Player2HistoryCont.setName(player2Input.value)
             modal.classList.remove('intro-modal-bg-active')
         })
     };
 
     return {closeModal}
+})()
+
+const Player1HistoryCont = (() => {
+    const historyCont = document.getElementById('player1-grid')
+    const playerName = document.getElementById('player1-hist-name')
+    const playerScore = document.getElementById('player1-score')
+    let gameSquares = []
+    let score = 0
+    createSmallGrid = () => {
+        let gameGrid = document.createElement('div')
+        gameGrid.classList.add('game-small')
+        historyCont.prepend(gameGrid)
+        for (i=1;i<10;i++) {
+            let gameSquare = document.createElement('div')
+            gameSquare.classList.add('small-box')
+            gameSquare.id = `small-box${i}`
+            gameGrid.append(gameSquare)
+            gameSquares.push(gameSquare)
+        }
+    };
+    setSmallGridMoves = () => {
+        moves = GameBoard.getBoxesHTML()
+        console.log(moves)
+        console.log(gameSquares)
+        for (i=0;i<9;i++) {
+            gameSquares[i].innerHTML = moves[i]
+        }resetList()
+    }
+
+    setName = (inputVale) => {
+        playerName.innerHTML = inputVale
+    }
+
+    resetList = () => {
+        gameSquares = []
+    }
+
+    updateScore = () => {
+        score +=1
+        playerScore.innerHTML = score
+    }
+
+    cleanHistoryGrid = () => {
+        console.log(historyCont.childElementCount)
+        if (historyCont.childElementCount >= 7) {
+            historyCont.removeChild(historyCont.lastElementChild)
+        }
+    } 
+
+    return {createSmallGrid, setSmallGridMoves, setName, updateScore, resetList, cleanHistoryGrid}
+})()
+
+
+const Player2HistoryCont = (() => {
+    const historyCont = document.getElementById('player2-grid')
+    const playerName = document.getElementById('player2-hist-name')
+    const playerScore = document.getElementById('player2-score')
+    console.log(historyCont.childElementCount)
+    let gameSquares = []
+    let score = 0
+    createSmallGrid = () => {
+        let gameGrid = document.createElement('div')
+        gameGrid.classList.add('game-small')
+        historyCont.prepend(gameGrid)
+        for (i=1;i<10;i++) {
+            let gameSquare = document.createElement('div')
+            gameSquare.classList.add('small-box')
+            gameSquare.id = `small-box${i}`
+            gameGrid.append(gameSquare)
+            gameSquares.push(gameSquare)
+        }
+    };
+    setSmallGridMoves = () => {
+        moves = GameBoard.getBoxesHTML()
+        for (i=0;i<9;i++) {
+            gameSquares[i].innerHTML = moves[i]
+        }resetList()
+    }
+
+    setName = (inputVale) => {
+        playerName.innerHTML = inputVale
+    }
+
+    resetList = () => {
+        gameSquares = []
+    }
+
+    updateScore = () => {
+        score +=1
+        playerScore.innerHTML = score
+    }
+
+    update = () => {
+        createSmallGrid()
+        setSmallGridMoves()
+        updateScore()
+        cleanHistoryGrid()
+    }
+
+    cleanHistoryGrid = () => {
+        if (historyCont.childElementCount >= 7) {
+            historyCont.removeChild(historyCont.lastElementChild)
+        }
+    } 
+
+    return {createSmallGrid, setSmallGridMoves, setName, updateScore, update}
 })()
 
 Game.game()
