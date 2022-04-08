@@ -1,19 +1,17 @@
-const Player = (move) => {
-    setName = (player1Name, player2Name) => {
-        this.playerNames = [player1Name, player2Name]
+class Player {
+    constructor(move) {
+        this.move = move
     };
-    getPlayer1Name = () => {
-        name = playerNames[0]
-        return name.charAt(0).toUpperCase() + name.slice(1)
+    setName(name) {
+        this.name = name
     };
-    getPlayer2Name = () => {
-        name = playerNames[1]
-        return name.charAt(0).toUpperCase() + name.slice(1)
-    };
-    getMove = () => {
-        return move
-    };return {getMove, setName, getPlayer1Name, getPlayer2Name}}
-
+    getName() {
+        return this.name
+    }
+    getMove() {
+        return this.move
+    }
+}
 
 const GameBoard = (() =>{
     let grid = [['box1','box2','box3'],
@@ -107,8 +105,8 @@ const GameBoard = (() =>{
     })()
 
 const Game = (() =>{
-    const xPlayer = Player('X');
-    const oPlayer = Player('O');
+    const xPlayer = new Player('X');
+    const oPlayer = new Player('O');
     const gameBoxes = document.querySelectorAll('.game-box')
     const notValid = document.createElement('div')
     const informationCont = document.querySelector('.information-cont')
@@ -117,7 +115,7 @@ const Game = (() =>{
     notValid.innerHTML = 'Please select a legal move'
 
     game = () =>{
-        IntroModal.closeModal(xPlayer)
+        IntroModal.closeModal(xPlayer, oPlayer)
         Modal.closeModal()
         gameBoxes.forEach(box => {
         box.addEventListener('click', e => {
@@ -126,8 +124,6 @@ const Game = (() =>{
             winner = GameBoard.checkWinner(box)
             if (winner) {
                 showWinner(winner)
-                // Player1HistoryCont.createSmallGrid()
-                // Player1HistoryCont.setSmallGridMoves()
                 Modal.openModal()}
             })
         })};
@@ -170,19 +166,15 @@ const Game = (() =>{
 
     getWinnersName = (winner) => {
         if (winner == oPlayer.getMove()) {
-            winnerName = oPlayer.getPlayer2Name()
+            winnerName = oPlayer.getName()
             Player2HistoryCont.update()
         }
         else if (winner == 'Draw') {
             winnerName = 'DRAW!'
         }
         else if (winner == xPlayer.getMove()) {
-            winnerName = xPlayer.getPlayer1Name()
-            Player1HistoryCont.createSmallGrid()
-            Player1HistoryCont.setSmallGridMoves()
-            Player1HistoryCont.updateScore()
-            Player1HistoryCont.resetList()
-            Player1HistoryCont.cleanHistoryGrid()
+            winnerName = xPlayer.getName()
+            Player1HistoryCont.updatePlayer1()
         }
         return winnerName
     }
@@ -210,10 +202,11 @@ const IntroModal = (() => {
     const submitBtn = document.querySelector('.submit-btn')
     const player1Input = document.getElementById('player1-name')
     const player2Input = document.getElementById('player2-name')
-    closeModal =(xPlayer) => {
+    closeModal =(xPlayer,oPlayer) => {
         submitBtn.addEventListener('click',e => {
             e.preventDefault()
-            xPlayer.setName(player1Input.value, player2Input.value)
+            xPlayer.setName(player1Input.value)
+            oPlayer.setName(player2Input.value)
             Player1HistoryCont.setName(player1Input.value)
             Player2HistoryCont.setName(player2Input.value)
             modal.classList.remove('intro-modal-bg-active')
@@ -223,13 +216,14 @@ const IntroModal = (() => {
     return {closeModal}
 })()
 
+
 const Player1HistoryCont = (() => {
     const historyCont = document.getElementById('player1-grid')
     const playerName = document.getElementById('player1-hist-name')
     const playerScore = document.getElementById('player1-score')
     let gameSquares = []
     let score = 0
-    createSmallGrid = () => {
+    createPlayer1Grid = () => {
         let gameGrid = document.createElement('div')
         gameGrid.classList.add('game-small')
         historyCont.prepend(gameGrid)
@@ -241,33 +235,39 @@ const Player1HistoryCont = (() => {
             gameSquares.push(gameSquare)
         }
     };
-    setSmallGridMoves = () => {
+    setSmallGridMovesPlayer1 = () => {
         moves = GameBoard.getBoxesHTML()
         for (i=0;i<9;i++) {
             gameSquares[i].innerHTML = moves[i]
-        }resetList()
+        }this.resetPlayer1List()
     }
 
     setName = (inputVale) => {
         playerName.innerHTML = inputVale
     }
 
-    resetList = () => {
+    resetPlayer1List = () => {
         gameSquares = []
     }
 
-    updateScore = () => {
+    updatePlayer1Score = () => {
         score +=1
         playerScore.innerHTML = score
     }
 
-    cleanHistoryGrid = () => {
+    cleanHistoryGridPlayer1 = () => {
         if (historyCont.childElementCount >= 7) {
             historyCont.removeChild(historyCont.lastElementChild)
         }
-    } 
+    }
+    updatePlayer1 = () => {
+        createPlayer1Grid()
+        setSmallGridMovesPlayer1()
+        updatePlayer1Score()
+        cleanHistoryGridPlayer1()
+    }
 
-    return {createSmallGrid, setSmallGridMoves, setName, updateScore, resetList, cleanHistoryGrid}
+    return {createPlayer1Grid, setSmallGridMovesPlayer1, setName, updatePlayer1Score, cleanHistoryGridPlayer1, updatePlayer1}
 })()
 
 
