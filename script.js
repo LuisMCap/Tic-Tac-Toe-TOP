@@ -178,7 +178,6 @@ const Game = (() =>{
         }
         else if (winner == xPlayer.getMove()) {
             winnerName = xPlayer.getPlayer1Name()
-            console.log('hola')
             Player1HistoryCont.createSmallGrid()
             Player1HistoryCont.setSmallGridMoves()
             Player1HistoryCont.updateScore()
@@ -244,8 +243,6 @@ const Player1HistoryCont = (() => {
     };
     setSmallGridMoves = () => {
         moves = GameBoard.getBoxesHTML()
-        console.log(moves)
-        console.log(gameSquares)
         for (i=0;i<9;i++) {
             gameSquares[i].innerHTML = moves[i]
         }resetList()
@@ -265,7 +262,6 @@ const Player1HistoryCont = (() => {
     }
 
     cleanHistoryGrid = () => {
-        console.log(historyCont.childElementCount)
         if (historyCont.childElementCount >= 7) {
             historyCont.removeChild(historyCont.lastElementChild)
         }
@@ -279,7 +275,6 @@ const Player2HistoryCont = (() => {
     const historyCont = document.getElementById('player2-grid')
     const playerName = document.getElementById('player2-hist-name')
     const playerScore = document.getElementById('player2-score')
-    console.log(historyCont.childElementCount)
     let gameSquares = []
     let score = 0
     createSmallGrid = () => {
