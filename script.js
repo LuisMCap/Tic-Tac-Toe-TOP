@@ -71,7 +71,6 @@ const GameBoard = (() =>{
         gameBoxes.forEach(box =>{
             boxesContent.push(box.innerHTML)
          })
-        console.log(boxesContent)
      }
 
      getBoxesHTML = () => {
@@ -240,32 +239,32 @@ const Player1HistoryCont = (() => {
         for (i=0;i<9;i++) {
             gameSquares[i].innerHTML = moves[i]
         }this.resetPlayer1List()
-    }
+    };
 
     setName = (inputVale) => {
         playerName.innerHTML = inputVale
-    }
+    };
 
     resetPlayer1List = () => {
         gameSquares = []
-    }
+    };
 
     updatePlayer1Score = () => {
         score +=1
         playerScore.innerHTML = score
-    }
+    };
 
     cleanHistoryGridPlayer1 = () => {
         if (historyCont.childElementCount >= 7) {
             historyCont.removeChild(historyCont.lastElementChild)
-        }
+        };
     }
     updatePlayer1 = () => {
         createPlayer1Grid()
         setSmallGridMovesPlayer1()
         updatePlayer1Score()
         cleanHistoryGridPlayer1()
-    }
+    };
 
     return {createPlayer1Grid, setSmallGridMovesPlayer1, setName, updatePlayer1Score, cleanHistoryGridPlayer1, updatePlayer1}
 })()
@@ -294,33 +293,33 @@ const Player2HistoryCont = (() => {
         for (i=0;i<9;i++) {
             gameSquares[i].innerHTML = moves[i]
         }resetList()
-    }
+    };
 
     setName = (inputVale) => {
         playerName.innerHTML = inputVale
-    }
+    };
 
     resetList = () => {
         gameSquares = []
-    }
+    };
 
     updateScore = () => {
         score +=1
         playerScore.innerHTML = score
-    }
+    };
 
     update = () => {
         createSmallGrid()
         setSmallGridMoves()
         updateScore()
         cleanHistoryGrid()
-    }
+    };
 
     cleanHistoryGrid = () => {
         if (historyCont.childElementCount >= 7) {
             historyCont.removeChild(historyCont.lastElementChild)
         }
-    } 
+    } ;
 
     return {createSmallGrid, setSmallGridMoves, setName, updateScore, update}
 })()
