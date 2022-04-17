@@ -14,10 +14,10 @@
 }
 
 body {
+    margin: 0;
     font-family: 'VT323', monospace;
     background-color: var(--bg-color);
     box-sizing: border-box;
-    margin: 0;
 }
 
 .grid-cont {
